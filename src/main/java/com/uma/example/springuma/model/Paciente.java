@@ -1,5 +1,7 @@
 package com.uma.example.springuma.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -7,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -46,6 +49,8 @@ public class Paciente {
         this.dni = dni;
     }
 
+    private String codigo;
+    
 
     private int edad;
     public int getEdad() {
@@ -64,16 +69,12 @@ public class Paciente {
     public void setParametros(PerfilSalud parametros) {
         this.parametros = parametros;
     }
-
-    @OneToMany
-    private Evento evento;
-    public Evento getEvento() {
-        return evento;
-    }
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
     
+    @OneToMany
+    private List<Evento> eventos;
+    
+
+ 
     @ManyToOne
     private Medico medico;
     public Medico getMedico() {
@@ -82,6 +83,40 @@ public class Paciente {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
+
+    @ManyToMany
+    private List<Enfermedad> enfermedades;
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+    public List<Enfermedad> getEnfermedades() {
+        return enfermedades;
+    }
+    public void setEnfermedades(List<Enfermedad> enfermedades) {
+        this.enfermedades = enfermedades;
+    }
+    public String getCodigo() {
+        return codigo;
+    }
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+    
+/**
+ *     @OneToMany
+    private Enfermedad enfermedad;
+    public Enfermedad getEnfermedad() {
+        return enfermedad;
+    }
+    public void setEnfermedad(Enfermedad enfermedad) {
+        this.enfermedad = enfermedad;
+    }
+ */
+
+    
 
 }
     

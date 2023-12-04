@@ -6,11 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Medico {
+public class Enfermedad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,36 +17,39 @@ public class Medico {
     public long getId() {
         return id;
     }
-    public Medico(){}
+    public Enfermedad(){}
 
-    private String nombre;
+    private String name;
+    private String description;
     private String especialidad;
-    private String codigo;
-
+    private String tratamiento;
     public void setId(long id) {
         this.id = id;
     }
-    public String getCodigo() {
-        return codigo;
+    public String getName() {
+        return name;
     }
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getNombre() {
-        return nombre;
+    public String getDescription() {
+        return description;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
     public String getEspecialidad() {
         return especialidad;
     }
-
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
+    public String getTratamiento() {
+        return tratamiento;
+    }
+    public void setTratamiento(String tratamiento) {
+        this.tratamiento = tratamiento;
+    }
     
-
 }
+

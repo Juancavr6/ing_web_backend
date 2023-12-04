@@ -13,6 +13,7 @@ public class CuentaService {
 
     public List<Cuenta> getAllCuentas(){
         return repositoryCuenta.findAll();
+
     }
 
     public Cuenta getCuenta(Long id){
