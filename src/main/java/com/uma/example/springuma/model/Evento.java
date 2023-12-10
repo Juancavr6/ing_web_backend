@@ -1,5 +1,9 @@
 package com.uma.example.springuma.model;
 
+import java.time.LocalDateTime;
+
+import org.springframework.cglib.core.Local;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -20,7 +24,9 @@ public class Evento {
     public Evento(){}
 
     private String nombre;
-    private String descripcion;    
+    private String descripcion;  
+    private LocalDateTime fecha; 
+    
     public void setId(long id) {
         this.id = id;
     }
@@ -35,6 +41,12 @@ public class Evento {
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -60,7 +61,7 @@ public class Paciente {
         this.edad = edad;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private PerfilSalud parametros;
     public  PerfilSalud getParametros() {
         return parametros;
@@ -70,12 +71,12 @@ public class Paciente {
         this.parametros = parametros;
     }
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Evento> eventos;
     
 
  
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Medico medico;
     public Medico getMedico() {
         return medico;
@@ -84,7 +85,7 @@ public class Paciente {
         this.medico = medico;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Enfermedad> enfermedades;
     public List<Evento> getEventos() {
         return eventos;

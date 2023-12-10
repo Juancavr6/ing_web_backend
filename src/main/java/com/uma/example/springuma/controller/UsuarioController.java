@@ -16,18 +16,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uma.example.springuma.model.Enfermedad;
 import com.uma.example.springuma.model.Evento;
 import com.uma.example.springuma.model.Medico;
+import com.uma.example.springuma.model.MedicoService;
 import com.uma.example.springuma.model.Paciente;
 import com.uma.example.springuma.model.PacienteService;
 
 @RestController
-public class PacienteController {
+public class UsuarioController {
     
 @Autowired
     private PacienteService pacienteService;
+@Autowired
+    private MedicoService medicoService;
 
     @GetMapping("/paciente")
     public List<Paciente> getPacientes(){
         return pacienteService.getAllPacientes();
+    }
+
+    @GetMapping("/medico")
+    public List<Medico> getMedicos(){
+        return medicoService.getAllMedicos();
     }
     
     @GetMapping("/paciente/{id}")
@@ -38,11 +46,11 @@ public class PacienteController {
     public List<Evento> getPacienteEventos(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getEventos();
     }
-        @GetMapping("/paciente/{id}/medico")
+    @GetMapping("/paciente/{id}/medico")
     public Medico getPacienteMedico(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getMedico();
     }
-            @GetMapping("/paciente/{id}/enfermedades")
+    @GetMapping("/paciente/{id}/enfermedades")
     public List<Enfermedad> getPacienteEnfermedades(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getEnfermedades();
     }
@@ -53,7 +61,17 @@ public class PacienteController {
             return ResponseEntity.noContent().build();
         }
         catch(Exception e){
-            return ResponseEntity.internalServerError().body("La Paciente ya existe");
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+	}
+    @PostMapping(value = "/medico",     consumes = {MediaType.APPLICATION_JSON_VALUE} )
+	public ResponseEntity<?> savePaciente(@RequestBody Medico medico) {
+        try{
+            medicoService.addMedico(medico);
+            return ResponseEntity.noContent().build();
+        }
+        catch(Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
 	}
 
@@ -77,7 +95,19 @@ public class PacienteController {
         }
         catch(Exception e){
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Error al eliminar la Paciente");
+            return ResponseEntity.internalServerError().body("Error al eliminar  Paciente");
+        }
+    }
+
+    @DeleteMapping("/medico/{id}")
+    public ResponseEntity<?> deleteMedico(@PathVariable("id") Long id) {
+        try{
+            medicoService.removeMedicoID(id);
+            return ResponseEntity.noContent().build();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 }
