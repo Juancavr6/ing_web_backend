@@ -37,6 +37,11 @@ public class LoginController {
         return 1;
     }
 
+    @GetMapping("login/medos")
+    public int getLoginDos(){
+        return 2;
+    }
+
     @GetMapping("login/paciente/{id}")
     public String getCodePaciente(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getCodigo();

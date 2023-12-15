@@ -19,6 +19,7 @@ import com.uma.example.springuma.model.Medico;
 import com.uma.example.springuma.model.MedicoService;
 import com.uma.example.springuma.model.Paciente;
 import com.uma.example.springuma.model.PacienteService;
+import com.uma.example.springuma.model.PerfilSalud;
 
 @RestController
 public class UsuarioController {
@@ -45,6 +46,10 @@ public class UsuarioController {
     @GetMapping("/paciente/{id}/eventos")
     public List<Evento> getPacienteEventos(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getEventos();
+    }
+    @GetMapping("/paciente/{id}/parametros")
+    public PerfilSalud getPacienteParametros(@PathVariable("id") Long id) {
+        return pacienteService.getPaciente(id).getParametros();
     }
     @GetMapping("/paciente/{id}/medico")
     public Medico getPacienteMedico(@PathVariable("id") Long id) {
