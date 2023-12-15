@@ -10,6 +10,8 @@ public class PacienteService {
 
     @Autowired
     RepositoryPaciente repositoryPaciente;
+    @Autowired
+    RepositoryPerfilSalud repositoryPerfilSalud;
 
     public List<Paciente> getAllPacientes(){
         return repositoryPaciente.findAll();
@@ -26,6 +28,10 @@ public class PacienteService {
         return repositoryPaciente.saveAndFlush(c);
     }
 
+    public void updatePacienteParametros(PerfilSalud p){
+
+        repositoryPerfilSalud.save(p);
+    }
     public void updatePaciente(Paciente c){
         repositoryPaciente.save(c);
     }

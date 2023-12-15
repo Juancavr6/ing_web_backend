@@ -92,6 +92,18 @@ public class UsuarioController {
         }
     }
 
+    @PutMapping(value = "/paciente/update",     consumes = {MediaType.APPLICATION_JSON_VALUE} )
+    public ResponseEntity<?> updatePacienteParametros (@RequestBody PerfilSalud parametros) {
+        try{
+            pacienteService.updatePacienteParametros(parametros);
+            return ResponseEntity.noContent().build();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error al actualizar la Paciente");
+        }
+    }
+
     @DeleteMapping("/paciente/{id}")
     public ResponseEntity<?> deletePaciente(@PathVariable("id") Long id) {
         try{
