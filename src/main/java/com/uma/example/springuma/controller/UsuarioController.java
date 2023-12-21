@@ -34,6 +34,7 @@ public class UsuarioController {
         return pacienteService.getAllPacientes();
     }
 
+
     @GetMapping("/medico")
     public List<Medico> getMedicos(){
         return medicoService.getAllMedicos();
@@ -43,10 +44,12 @@ public class UsuarioController {
     public Paciente getPaciente(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id);
     }
-    @GetMapping("/paciente/{id}/eventos")
-    public List<Evento> getPacienteEventos(@PathVariable("id") Long id) {
-        return pacienteService.getPaciente(id).getEventos();
+
+    @GetMapping("/medico/{id}")
+    public String getMedico(@PathVariable("id") Long id) {
+        return medicoService.getMedico(id).getNombre();
     }
+
     @GetMapping("/paciente/{id}/parametros")
     public PerfilSalud getPacienteParametros(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getParametros();
@@ -59,6 +62,12 @@ public class UsuarioController {
     public List<Enfermedad> getPacienteEnfermedades(@PathVariable("id") Long id) {
         return pacienteService.getPaciente(id).getEnfermedades();
     }
+
+    @GetMapping("/paciente/medico/{id}")
+    public List<Paciente> getEventosPaciente(@PathVariable("id") Long id) {
+        return pacienteService.getPacienteByMedico(id);
+    }
+
     @PostMapping(value = "/paciente",     consumes = {MediaType.APPLICATION_JSON_VALUE} )
 	public ResponseEntity<?> savePaciente(@RequestBody Paciente paciente) {
         try{
@@ -69,6 +78,7 @@ public class UsuarioController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
 	}
+
     @PostMapping(value = "/medico",     consumes = {MediaType.APPLICATION_JSON_VALUE} )
 	public ResponseEntity<?> savePaciente(@RequestBody Medico medico) {
         try{
@@ -84,6 +94,18 @@ public class UsuarioController {
     public ResponseEntity<?> updatePaciente (@RequestBody Paciente paciente) {
         try{
             pacienteService.updatePaciente(paciente);
+            return ResponseEntity.noContent().build();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error al actualizar la Paciente");
+        }
+    }
+
+    @PutMapping(value = "/paciente/{id}/{name}")
+    public ResponseEntity<?> updatePacienteName (@PathVariable("id") Long id,@PathVariable("name") String name) {
+        try{
+            pacienteService.updatePacienteName(id,name);
             return ResponseEntity.noContent().build();
         }
         catch(Exception e){
@@ -112,7 +134,7 @@ public class UsuarioController {
         }
         catch(Exception e){
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Error al eliminar  Paciente");
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 

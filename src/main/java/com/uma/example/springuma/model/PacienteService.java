@@ -24,6 +24,10 @@ public class PacienteService {
         return repositoryPaciente.findByDni(dni);
     }
 
+    public List<Paciente> getPacienteByMedico(long id ){
+        return repositoryPaciente.findByMedicoId(id);
+    }
+
     public Paciente addPaciente(Paciente c){
         return repositoryPaciente.saveAndFlush(c);
     }
@@ -34,6 +38,12 @@ public class PacienteService {
     }
     public void updatePaciente(Paciente c){
         repositoryPaciente.save(c);
+    }
+
+    public void updatePacienteName(long id,String name){
+        Paciente p = repositoryPaciente.getReferenceById(id);
+        p.setNombre(name);
+        repositoryPaciente.save(p);
     }
 
     public void removePaciente(Paciente c){

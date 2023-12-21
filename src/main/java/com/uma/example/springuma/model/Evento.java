@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -26,6 +27,8 @@ public class Evento {
     private String nombre;
     private String descripcion;  
     private LocalDateTime fecha; 
+    @ManyToOne
+    private Paciente paciente;
     
     public void setId(long id) {
         this.id = id;
@@ -47,6 +50,12 @@ public class Evento {
     }
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
+    }
+    public Paciente getPaciente() {
+        return paciente;
+    }
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
 

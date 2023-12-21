@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -70,13 +69,9 @@ public class Paciente {
     public void setParametros(PerfilSalud parametros) {
         this.parametros = parametros;
     }
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Evento> eventos;
-    
 
  
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Medico medico;
     public Medico getMedico() {
         return medico;
@@ -87,12 +82,7 @@ public class Paciente {
 
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Enfermedad> enfermedades;
-    public List<Evento> getEventos() {
-        return eventos;
-    }
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
-    }
+    
     public List<Enfermedad> getEnfermedades() {
         return enfermedades;
     }
